@@ -1,0 +1,74 @@
+﻿@page "/fetchdata"
+@using WheelsBlazor.Data
+@inject WheelsService WheelsService
+
+<PageTitle>Alloy Wheels</PageTitle>
+
+<h1>Alloy Wheels</h1>
+
+<p>This component demonstrates fetching data from a service.</p>
+@if (@_popupVisible)
+{
+
+    <div class="modal" tabindex="-1" role="dialog" style="display: @((_popupVisible) ? "block" : "none")">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Info</h5>
+                </div>
+                <div class="modal-body">
+                    <p>@_response</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" @onclick="PopupClick">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+@if (_filteredData == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <label>Brand filter</label>
+    <div class="col-8">
+        <select id="filter" name="filter" @onchange="ChangeFilter" >
+            <option value="All">All</option>
+            @for (int i = 0; i < _filterTypes.Length; i++)
+            {
+                <option value = "@_filterTypes[i]" > @_filterTypes[i] </option>
+            }
+        </select>
+    </div>
+    
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>BoltCircle</th>
+                <th>Brand</th>
+                <th>Diameter</th>
+                <th>Offset</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var data in _filteredData)
+            {
+                <tr>
+                    <td>@data.ID</td>
+                    <td>@data.BoltCircle</td>
+                    <td>@data.Brand</td>
+                    <td>@data.Diameter</td>
+                    <td>@data.Offset</td>
+                    <td><Button value="@data.ID" @onclick="@(()=>DeleteItem(@data.ID))">delete</Button></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+
+}

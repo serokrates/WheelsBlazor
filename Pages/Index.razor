@@ -1,0 +1,75 @@
+﻿@page "/"
+@using System.Diagnostics
+@using System.Text.Json
+
+<link href="Index.Razor.css" rel="stylesheet">
+
+<PageTitle>AlloyWheels</PageTitle>
+@if (@PopupVisible)
+{
+
+    <div class="modal" tabindex="-1" role="dialog" style="display: @((PopupVisible) ? "block" : "none")">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Info</h5>
+            </div>
+            <div class="modal-body">
+                <p>Item added succesfully</p>
+            </div>
+            <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" @onclick="PopupClick">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+}
+@if (@ShowCreate)
+{
+    <h3>Add a New Alloy Wheel</h3>
+    <div class="row">
+        <label for="Brand" class="col-4 col-form-label">Brand</label>
+        <div class="col-8">
+            <select @bind="@_brandType">
+                <option value="Alutec">Alutec</option>
+                <option value="Anzio">Anzio</option>
+                <option value="Rial">Rial</option>
+                <option value="Ats">Ats</option>
+            </select>
+        </div>
+    </div>
+    <div class="row">
+        <label for="Email" class="col-4 col-form-label">Diameter</label>
+        <div class="col-8">
+            <input id="Email" name="Diameter" type="text" class="form-control" @bind="@NewAlloyWheel.Diameter">
+        </div>
+    </div>
+    <div class="row">
+        <label for="BoltiCircle" class="col-4 col-form-label">BoltiCircle</label>
+        <div class="col-8">
+            <input id="BoltiCircle" name="BoltiCircle" type="text" class="form-control" @bind="@NewAlloyWheel.BoltCircle">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="Offset" class="col-4 col-form-label">Offset</label>
+        <div class="col-8">
+            <input id="Offset" name="Offset" type="text" class="form-control" @bind="@NewAlloyWheel.Offset">
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="offset-4 col-8">
+            <button name="submit" type="submit" class="btn btn-primary" @onclick="SaveData">Submit</button>
+        </div>
+    </div>
+
+}
+else
+{
+    <div class="form-group row">
+        <div class="offset-4 col-8">
+            <button name="submit" type="submit" class="btn btn-primary" @onclick="ShowCreateForm">Add a New Alloy Wheel</button>
+        </div>
+    </div>
+
+    <p>SHOW THE LIST</p>
+}
